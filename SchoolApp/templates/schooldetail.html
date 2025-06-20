@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container p-3 mt-3 w-50">
+<h2 class="text-center mt-3">School Details</h2>
+<table class="table table-bordered p-3 mt-5 fs-4">
+    <tr>
+        <th>SchoolName</th>
+        <td>{{school.name}}</td>
+    </tr>
+    <tr>
+        <th>Principal</th>
+        <td>{{school.principal}}</td>
+    </tr>
+    <tr>
+        <th>Location</th>
+        <td>{{school.location}}</td>
+    </tr>
+    <tr>
+        <th colspan="2" class="text-center">
+        <a class="btn btn-secondary fs-5" href="{% url 'join' school.id %}">Join Now</a></th>
+    </tr>
+</table>
+
+{% if user.is_authenticated %}
+    {% if user.is_superuser==True %}
+    <div><h4>LIST OF STUDENTS</h4>
+    <ol>
+    {% for i in school.students.all %}
+        <li>Name:{{i.name}}<br> Age:{{i.age}}<br> Place:{{i.place}}</li>
+    {% endfor %}
+        </ol>
+        </div>
+    {% endif %}
+    {% endif %}
+
+</div>
+
+{% endblock %}
